@@ -14,8 +14,10 @@ pub = rospy.Publisher(args.autoware_topic, DetectedObjectArray, queue_size=10)
 
 def callback(box_array):
   autoware_array = DetectedObjectArray()
+  autoware_array.header = box_array.header
   for box in box_array.boxes:
     autoware_object = DetectedObject()
+    autoware_object.header = box.header
     autoware_object.pose = box.pose
     autoware_object.dimensions = box.dimensions
     autoware_array.objects.append(autoware_object)
